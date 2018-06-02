@@ -40,7 +40,7 @@ jobs:
       - run:
           name: Deploy to NOW.sh
           command: >
-            npm run now:deploy -- --token $NOW_TOKEN
+            yarn now:deploy --token $NOW_TOKEN
             && npm run now:alias
             && npm run now:remove
 
