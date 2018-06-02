@@ -5,8 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "build": "poi build",
-    "dev": "poi --babel.jsx h",
-    "deploy": "poi build && git subtree push --prefix dist origin gh-pages"
+    "dev": "poi --babel.jsx h"
   },
   "repository": {
     "type": "git",
