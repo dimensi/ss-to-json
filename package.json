@@ -1,0 +1,46 @@
+{
+  "name": "ss-to-json",
+  "version": "1.0.0",
+  "description": "Convert ss links to json",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "poi build",
+    "dev": "poi --babel.jsx h"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dimensi/ss-to-json.git"
+  },
+  "keywords": [
+    "ss",
+    "socks",
+    "convert",
+    "json",
+    "ss-to-json"
+  ],
+  "author": {
+    "name": "Nikita Nafranets",
+    "email": "eddimensi@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dimensi/ss-to-json/issues"
+  },
+  "homepage": "https://github.com/dimensi/ss-to-json#readme",
+  "devDependencies": {
+    "babel-eslint": "^8.2.3",
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-config-standard-preact": "^1.1.6",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "poi": "^10.2.1"
+  },
+  "dependencies": {
+    "hyperapp": "^1.2.6",
+    "normalize.css": "^8.0.0",
+    "sprintf-js": "^1.1.1"
+  }
+}
