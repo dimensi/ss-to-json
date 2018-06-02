@@ -22,28 +22,25 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-{{ checksum "package-lock.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
       - run:
-          name: updating npm...
-          command: npmv=$(echo $(npm -v) | head -c 1); if [ "$npmv" -lt "6" ]; then sudo npm i -g npm; else echo "Node.js Docker Team finally decided to include npm v6+ in latest image; you can remove this script now"; fi
-          
-      - run:
-          name: installing dev dependencies...
-          command: npm ci
+          command: npm i
 
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
         
       - run: npm run build
 
       - run:
           name: Deploy to NOW.sh
           command: |
-            npm run now:deploy -- --token $NOW_TOKEN && now alias && npm run now:remove
+            npm run now:deploy -- --token $NOW_TOKEN
+            && npm run now:alias
+            && npm run now:remove
 
 
