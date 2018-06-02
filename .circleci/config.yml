@@ -33,6 +33,11 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
         
-      - run: npm run deploy
+      - run: npm run build
+
+      - run:
+          name: Deploy to NOW.sh
+          command: |
+            npm run now:deploy -- --token $NOW_TOKEN && now alias && npm run now:remove
 
 
