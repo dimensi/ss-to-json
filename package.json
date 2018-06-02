@@ -6,7 +6,7 @@
   "scripts": {
     "build": "poi build",
     "dev": "poi --babel.jsx h",
-    "deploy": "poi build && git commit -am \"update dist\" && git subtree push --prefix dist origin gh-pages"
+    "deploy": "poi build && git commit -am \"update dist\" && git subtree push --prefix ./dist origin gh-pages"
   },
   "repository": {
     "type": "git",
