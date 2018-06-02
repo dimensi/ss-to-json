@@ -11,14 +11,14 @@ const patterns = {
   password: '[^@]+'
 }
 
-const halfBase64RegExp = sprintf('%s(?<config>%s)@(?<server>%s):(?<port>%s)',
+const halfBase64RegExp = sprintf('%s(%s)@(%s):(%s)',
   patterns.ssHost,
   patterns.base64,
   patterns.ip,
   patterns.port
 )
-const fullBase64RegExp = sprintf('%s(?<base64>%s)', patterns.ssHost, patterns.base64)
-const URLRegExp = sprintf('(?<method>%s):(?<password>%s)@(?<server>%s):(?<port>%s)',
+const fullBase64RegExp = sprintf('%s(%s)', patterns.ssHost, patterns.base64)
+const URLRegExp = sprintf('(%s):(%s)@(%s):(%s)',
   patterns.method,
   patterns.password,
   patterns.ip,
@@ -26,15 +26,45 @@ const URLRegExp = sprintf('(?<method>%s):(?<password>%s)@(?<server>%s):(?<port>%
 )
 
 const testOnHalfBase64 = (value) => new RegExp(halfBase64RegExp).test(value)
-const parseHalfBase64 = (value) => new RegExp(halfBase64RegExp).exec(value).groups
+const parseHalfBase64 = (value) => {
+  const [, config, server, port] = new RegExp(halfBase64RegExp).exec(value)
+  return {
+    config,
+    server,
+    port
+  }
+}
 
 const testOnFullBase64 = (value) => new RegExp(fullBase64RegExp).test(value)
-const parseFullBase64 = (value) => new RegExp(fullBase64RegExp).exec(value).groups
+const parseFullBase64 = (value) => {
+  const [, base64] = new RegExp(fullBase64RegExp).exec(value)
+  return {
+    base64
+  }
+}
 
-const parseURL = (value) => new RegExp(URLRegExp).exec(value).groups
+const testOnURL = (value) => {
+  const input = document.createElement('input')
+  input.type = 'url'
+  input.value = value
+  return input.validity.valid
+}
+
+const parseURL = (value) => {
+  const [, method, password, server, port] = new RegExp(URLRegExp).exec(value)
+  return {
+    method,
+    password,
+    server,
+    port
+  }
+}
 
 const getConfigFromURL = (value) => {
   const convertedURL = window.atob(value).trim()
+  if (!testOnURL(convertedURL)) {
+    return null
+  }
   const parsedURL = parseURL(convertedURL)
 
   return parsedURL
@@ -72,15 +102,19 @@ export const convertSStoObject = (/** @type {string} */ url) => {
 
   if (testOnFullBase64(url)) {
     const { base64 } = parseFullBase64(url)
-    const config = getConfigFromURL(base64)
-    const result = Object.assign({}, defaults, {
-      server: config.server,
-      server_port: Number(config.port),
-      method: config.method,
-      password: config.password
-    })
+    try {
+      const config = getConfigFromURL(base64)
+      const result = Object.assign({}, defaults, {
+        server: config.server,
+        server_port: Number(config.port),
+        method: config.method,
+        password: config.password
+      })
 
-    return result
+      return result
+    } catch (err) {
+      return null
+    }
   }
 
   return null

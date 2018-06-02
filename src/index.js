@@ -7,7 +7,8 @@ const state = {
   url: '',
   config: null,
   json: '',
-  error: ''
+  error: '',
+  unexpectedError: ''
 }
 
 const exampleURL = 'ss://YmYtY2ZiOnRlc3RAMTkyLjE2OC4xMDAuMTo4ODg4Cg'
@@ -18,10 +19,12 @@ const actions = {
   setJSON: value => () => ({ json: value !== null ? convertToJSON(value) : null }),
   setConfig: value => () => ({ config: value }),
   setError: value => () => ({ error: value }),
+  setUnexpectedError: value => () => ({ unexpectedError: value }),
   convert: event => (state, actions) => {
     actions.setError('')
     actions.setConfig(null)
     actions.setJSON(null)
+    actions.setUnexpectedError('')
     event.preventDefault()
     try {
       const config = convertSStoObject(state.url.trim())
@@ -32,7 +35,8 @@ const actions = {
       actions.setConfig(config)
       actions.setJSON(config)
     } catch (error) {
-      actions.setError(error)
+      console.error('Error while converting', error)
+      actions.setUnexpectedError(error.toString())
     }
   }
 }
@@ -65,6 +69,11 @@ const view = (state, actions) => (
       </div>}
       {state.error && <div className='error'>
         {state.error}
+      </div>}
+      {state.unexpectedError && <div className='error'>
+        Got error? Report <a href='https://github.com/dimensi/ss-to-json/issues/new' target='_blank'>this</a>, please.
+        <br />
+        {state.unexpectedError}
       </div>}
       {state.json && <div className='result'>
         <div className='result__code'>
