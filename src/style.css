@@ -148,3 +148,7 @@ html {
   color: white;
   text-decoration: underline;
 }
+
+.button {
+  margin-top: 10px;
+}

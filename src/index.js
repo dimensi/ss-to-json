@@ -1,4 +1,5 @@
 import { h, app } from 'hyperapp'
+import { render } from 'github-buttons'
 import { convertSStoObject, convertToJSON } from './utils'
 import 'normalize.css'
 import './style.css'
@@ -38,6 +39,9 @@ const actions = {
       console.error('Error while converting', error)
       actions.setUnexpectedError(error.toString())
     }
+    setTimeout(() => {
+      render()
+    })
   }
 }
 
@@ -85,6 +89,9 @@ const view = (state, actions) => (
           {resultList(state.config)}
         </div>
       </div>}
+      <div className='button'>
+        <a className='github-button' href='https://github.com/dimensi/ss-to-json' data-size='large' aria-label='Star dimensi/ss-to-json on GitHub'>Star</a>
+      </div>
     </div>
   </main>
 )
@@ -92,3 +99,6 @@ const view = (state, actions) => (
 const main = document.querySelector('main.main')
 document.body.removeChild(main)
 app(state, actions, view, document.body)
+setTimeout(() => {
+  render()
+})

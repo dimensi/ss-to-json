@@ -4,8 +4,8 @@
   "description": "Convert ss links to json",
   "main": "src/index.js",
   "scripts": {
-    "build": "poi build",
-    "dev": "poi --babel.jsx h",
+    "build": "poi --prod",
+    "dev": "poi --serve",
     "now:remove": "now rm ss-to-json --safe --yes",
     "now:deploy": "now -p -n ss-to-json ./dist",
     "now:alias": "now alias",
@@ -32,8 +32,8 @@
   },
   "homepage": "https://github.com/dimensi/ss-to-json#readme",
   "devDependencies": {
-    "babel-eslint": "^8.2.3",
-    "eslint": "^4.19.1",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.13.0",
     "eslint-config-standard": "^11.0.0",
     "eslint-config-standard-preact": "^1.1.6",
     "eslint-plugin-import": "^2.12.0",
@@ -41,9 +41,10 @@
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
     "now": "^11.2.1",
-    "poi": "^10.2.1"
+    "poi": "^12.5.5"
   },
   "dependencies": {
+    "github-buttons": "git+https://github.com/ntkme/github-buttons.git",
     "hyperapp": "^1.2.6",
     "normalize.css": "^8.0.0",
     "sprintf-js": "^1.1.1"

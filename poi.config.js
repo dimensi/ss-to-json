@@ -1,8 +1,11 @@
 module.exports = {
+  entry: './src/index.js',
   babel: {
     jsx: 'h'
   },
-  html: {
-    title: 'SS URL to JSON'
+  output: {
+    html: {
+      title: 'SS URL to JSON'
+    }
   }
 }
