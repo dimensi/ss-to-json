@@ -6,10 +6,7 @@
   "scripts": {
     "build": "poi --prod",
     "dev": "poi --serve",
-    "now:remove": "now rm ss-to-json --safe --yes",
-    "now:deploy": "now -p -n ss-to-json ./dist",
-    "now:alias": "now alias",
-    "deploy": "npm run build && npm run now:deploy && npm run now:alias && npm run now:remove"
+    "now-build": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -33,20 +30,20 @@
   "homepage": "https://github.com/dimensi/ss-to-json#readme",
   "devDependencies": {
     "babel-eslint": "^10.0.1",
-    "eslint": "^5.13.0",
-    "eslint-config-standard": "^11.0.0",
+    "eslint": "^5.15.3",
+    "eslint-config-standard": "^12.0.0",
     "eslint-config-standard-preact": "^1.1.6",
-    "eslint-plugin-import": "^2.12.0",
-    "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.8.0",
-    "eslint-plugin-standard": "^3.1.0",
-    "now": "^11.2.1",
-    "poi": "^12.5.5"
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "now": "^14.2.0",
+    "poi": "^12.5.6"
   },
   "dependencies": {
     "github-buttons": "git+https://github.com/ntkme/github-buttons.git",
-    "hyperapp": "^1.2.6",
-    "normalize.css": "^8.0.0",
-    "sprintf-js": "^1.1.1"
+    "hyperapp": "^1.2.9",
+    "normalize.css": "^8.0.1",
+    "sprintf-js": "^1.1.2"
   }
 }

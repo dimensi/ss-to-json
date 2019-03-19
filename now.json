@@ -1,5 +1,9 @@
 {
+  "version": 2,
   "name": "ss-to-json",
-  "alias": "ss-to-json",
-  "public": true
+  "alias": ["ss-to-json.now.sh"],
+  "public": true,
+  "builds": [
+    { "src": "package.json", "use": "@now/static-build" }
+  ]
 }
