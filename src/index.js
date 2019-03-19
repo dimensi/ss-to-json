@@ -8,6 +8,7 @@ renderButton()
 
 const renderBlock = document.querySelector('.render')
 const form = document.querySelector('.form')
+const exampleBlock = document.querySelector('.example')
 
 const renderItem = (key, value) => html`
   <li class="result__item">
@@ -84,5 +85,6 @@ form.addEventListener('submit', e => {
     data.unexpectedError = error.toString()
   }
 
+  exampleBlock.hidden = true
   render(App(data), renderBlock)
 })
