@@ -1,10 +1,7 @@
 import { html, render } from 'lit-html'
-import { render as renderButton } from 'github-buttons'
 import { convertSStoObject, convertToJSON, formToObject } from './utils'
 import 'normalize.css'
 import './style.css'
-
-renderButton()
 
 const renderBlock = document.querySelector('.render')
 const form = document.querySelector('.form')
