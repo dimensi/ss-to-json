@@ -1,6 +1,4 @@
-import {
-  sprintf
-} from 'sprintf-js'
+import { sprintf } from 'sprintf-js'
 
 const patterns = {
   port: '[1-9][0-9]{0,4}',
@@ -11,22 +9,24 @@ const patterns = {
   password: '[^@]+'
 }
 
-const halfBase64RegExp = sprintf('%s(%s)@(%s):(%s)',
+const halfBase64RegExp = sprintf(
+  '%s(%s)@(%s):(%s)',
   patterns.ssHost,
   patterns.base64,
   patterns.ip,
   patterns.port
 )
 const fullBase64RegExp = sprintf('%s(%s)', patterns.ssHost, patterns.base64)
-const URLRegExp = sprintf('(%s):(%s)@(%s):(%s)',
+const URLRegExp = sprintf(
+  '(%s):(%s)@(%s):(%s)',
   patterns.method,
   patterns.password,
   patterns.ip,
   patterns.port
 )
 
-const testOnHalfBase64 = (value) => new RegExp(halfBase64RegExp).test(value)
-const parseHalfBase64 = (value) => {
+const testOnHalfBase64 = value => new RegExp(halfBase64RegExp).test(value)
+const parseHalfBase64 = value => {
   const [, config, server, port] = new RegExp(halfBase64RegExp).exec(value)
   return {
     config,
@@ -35,22 +35,22 @@ const parseHalfBase64 = (value) => {
   }
 }
 
-const testOnFullBase64 = (value) => new RegExp(fullBase64RegExp).test(value)
-const parseFullBase64 = (value) => {
+const testOnFullBase64 = value => new RegExp(fullBase64RegExp).test(value)
+const parseFullBase64 = value => {
   const [, base64] = new RegExp(fullBase64RegExp).exec(value)
   return {
     base64
   }
 }
 
-const testOnURL = (value) => {
+const testOnURL = value => {
   const input = document.createElement('input')
   input.type = 'url'
   input.value = value
   return input.validity.valid
 }
 
-const parseURL = (value) => {
+const parseURL = value => {
   const [, method, password, server, port] = new RegExp(URLRegExp).exec(value)
   return {
     method,
@@ -60,7 +60,7 @@ const parseURL = (value) => {
   }
 }
 
-const getConfigFromURL = (value) => {
+const getConfigFromURL = value => {
   const convertedURL = window.atob(value).trim()
   if (!testOnURL(convertedURL)) {
     return null
@@ -69,15 +69,18 @@ const getConfigFromURL = (value) => {
 
   return parsedURL
 }
-const getMethodAndPass = (value) => {
-  const [method, password] = window.atob(value).trim().split(':')
+const getMethodAndPass = value => {
+  const [method, password] = window
+    .atob(value)
+    .trim()
+    .split(':')
   return {
     method,
     password
   }
 }
 
-export const convertToJSON = (result) => JSON.stringify(result, null, 2)
+export const convertToJSON = result => JSON.stringify(result, null, 2)
 
 export const convertSStoObject = (/** @type {string} */ url) => {
   const defaults = {
@@ -119,3 +122,12 @@ export const convertSStoObject = (/** @type {string} */ url) => {
 
   return null
 }
+
+export const formToObject = form =>
+  Array.from(new FormData(form)).reduce(
+    (acc, [key, value]) => ({
+      ...acc,
+      [key]: value
+    }),
+    {}
+  )

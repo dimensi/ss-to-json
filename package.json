@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "github-buttons": "git+https://github.com/ntkme/github-buttons.git",
-    "hyperapp": "^1.2.9",
+    "lit-html": "^1.0.0",
     "normalize.css": "^8.0.1",
     "sprintf-js": "^1.1.2"
   }
