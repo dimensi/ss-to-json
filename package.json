@@ -2,11 +2,10 @@
   "name": "ss-to-json",
   "version": "1.0.1",
   "description": "Convert ss links to json",
-  "main": "src/index.js",
+  "source": "src/index.html",
   "scripts": {
-    "build": "poi --prod",
-    "dev": "poi --serve",
-    "now-build": "npm run build"
+    "start": "parcel",
+    "build": "parcel build"
   },
   "repository": {
     "type": "git",
@@ -29,6 +28,8 @@
   },
   "homepage": "https://github.com/dimensi/ss-to-json#readme",
   "devDependencies": {
+    "@parcel/packager-raw-url": "^2.12.0",
+    "@parcel/transformer-webmanifest": "^2.12.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.15.3",
     "eslint-config-standard": "^12.0.0",
@@ -38,11 +39,10 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "now": "^14.2.0",
-    "poi": "^12.5.6"
+    "parcel": "^2.12.0"
   },
   "dependencies": {
     "lit-html": "^1.0.0",
-    "normalize.css": "^8.0.1",
-    "sprintf-js": "^1.1.2"
+    "normalize.css": "^8.0.1"
   }
 }
