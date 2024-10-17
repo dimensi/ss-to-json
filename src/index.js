@@ -24,9 +24,16 @@ const App = ({ json, config, error, unexpectedError }) => {
   if (error) {
     return html`
       <div class="error">
+        Got error? Report
+        <a
+          href="https://github.com/dimensi/ss-to-json/issues/new"
+          target="_blank"
+          >this</a
+        >, please.
+        <br />
         ${error}
       </div>
-    `
+    `;
   }
 
   if (unexpectedError) {
