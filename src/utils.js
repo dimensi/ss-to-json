@@ -6,32 +6,43 @@ function testOnURL (value) {
 }
 
 function getConfigFromURL (value) {
-  if (!testOnURL(value)) {
-    return null
-  }
-  const { pathname, search, hash } = new URL(value)
+  // Проверка URL с ранним возвратом
+  if (!testOnURL(value)) return null
 
+  const { pathname, search, hash, username, host } = new URL(value)
   const name = decodeURIComponent(hash.slice(1))
-  const [params, server] = pathname
-    .split('//')
-    .join('')
-    .split('@')
-  const { method, password } = getMethodAndPass(params)
+
+  // Определение начальных значений
+  let server = host
+  let method, password
+
+  if (username && host) {
+    // Если есть username и host, используем их
+    ({ method, password } = getMethodAndPass(username))
+  } else {
+    // Если username и host нет, разбираем из pathname
+    const [params, parsedHost] = pathname.replace(/^\/+/, '').split('@')
+    server = parsedHost || server; // В случае если host пустой
+    ({ method, password } = getMethodAndPass(params))
+  }
+
+  // Формирование строки параметров
+  const params = new URLSearchParams(search)
+  const formattedParams = Array.from(params.entries())
+    .map(([key, value]) => `${key}=${value}`)
+    .join(';')
 
   return {
     name,
     server,
     method,
     password,
-    params: Array.from(new URLSearchParams(search)).map(el => el.join('=')).join(';')
+    params: formattedParams
   }
 }
 
 function getMethodAndPass (value) {
-  const [method, password] = window
-    .atob(value)
-    .trim()
-    .split(':')
+  const [method, password] = window.atob(value).trim().split(':')
   return {
     method,
     password
